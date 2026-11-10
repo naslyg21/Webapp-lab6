@@ -26,11 +26,11 @@ The Peer Tutoring Hub application opened successfully in GitHub Codespaces.
 
 I submitted a test tutoring request for Adonis in course IS 6465. The request was saved and displayed as Request #2 with an initial status of Open.
 
-**Application URL:** [Add the Codespaces browser URL here]
+**Application URL:** https://glorious-happiness-4qv4qx47497whj4x-8000.app.github.dev/
 
 **Request details screenshot:**
 
-![Submitted tutoring request](screenshots/lab6-request-details.png)
+![Submitted tutoring request](Screenshots/lab6-request-details.png)
 
 ## Part 3: Application Workflow Tests
 
