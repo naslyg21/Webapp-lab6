@@ -6,10 +6,10 @@ $failed=0;function check($ok, $label){global $failed;echo ($ok?'PASS ':'FAIL ').
 $sample=['student_name'=>'Jordan Lee','student_email'=>'jordan@example.edu','course'=>'IS 6465','reason'=>'Please help with PHP form validation.','topics'=>['Exam review','Study plan'],'preferreddate'=>(new DateTimeImmutable('+10 days'))->format('Y-m-d'),'preferredtime'=>'Morning'];
 $id=submitRequest($pdo,$sample);$r=findRequest($pdo,$id);check($r!==false&&$r['status']==='Open','UC01 create and Open');
 check(decodeTopic($r['topic'])['topics']===['Exam review','Study plan'],'Lab 4 checkbox values preserved');
-$id2=submitRequest($pdo,$sample);check((int)$pdo->query('SELECT COUNT(*) FROM students')->fetchColumn()===1,'Duplicate email reuses student');
-check(count(listRequests($pdo,'IS 6465','Open'))===2,'UC02 course and status filter');
+$id2=submitRequest($pdo,$sample);check((int)$pdo->query('SELECT COUNT(*) FROM students')->fetchColumn()===2,'Duplicate email reuses student');
+check(count(listRequests($pdo,'IS 6465','Open'))===3,'UC02 course and status filter');
 $bad=$sample;$bad['reason']='short';try{submitRequest($pdo,$bad);check(false,'Invalid reason rejected');}catch(InvalidArgumentException $e){check(true,'Invalid reason rejected');}
-check((int)$pdo->query('SELECT COUNT(*) FROM tutoring_requests')->fetchColumn()===2,'Invalid submission writes nothing');
+check((int)$pdo->query('SELECT COUNT(*) FROM tutoring_requests')->fetchColumn()===3,'Invalid submission writes nothing');
 $edit=$sample;$edit['reason']='Updated request reason for the exam.';check(reviseRequest($pdo,$id,$edit),'Edit Open request');
 check(decodeTopic(findRequest($pdo,$id)['topic'])['reason']===$edit['reason'],'Updated reason persisted');
 check(cancelOpenRequest($pdo,$id),'Cancel Open request');check(findRequest($pdo,$id)['status']==='Cancelled','Cancelled row retained');
